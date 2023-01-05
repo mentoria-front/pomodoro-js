@@ -8,6 +8,7 @@ Figma: https://www.figma.com/file/ln6B1WDSFmQ9JX5mCHHiDb/Pomodoro?node-id=404%3A
 <img src="./public/assets/pomodoro.png"/>
 <br>
 <br>
+
 Run:
 ```bash
 $ npm start
