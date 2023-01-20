@@ -1,10 +1,10 @@
-import './App.css';
-import { Pomodoro } from './pages/Pomodoro';
+import Characters from "./pages/challange/Characters";
+import { Pomodoro } from "./pages/Pomodoro";
 
 function App() {
   return (
     <div className="App">
-      <Pomodoro />
+      <Characters />
     </div>
   );
 }
