@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
-import Quote from '../components/Quote'
-import { Timer } from '../components/Timer';
+import React, { useState } from "react";
+import Quote from "../components/Quote";
+import { Timer } from "../components/Timer";
+
+import "./styles.css";
 
 export const Pomodoro = () => {
   const [currentTime, setCurrentTime] = useState(0);
@@ -10,9 +12,11 @@ export const Pomodoro = () => {
   };
 
   return (
-    <div>
-      <Timer onTimerChange={changeTime}/>
-      <Quote currentTime={currentTime}/>
-    </div>
-  )
-}
+    <>
+      <div className="container">
+        <Timer onTimerChange={changeTime} styles={{ color: "red" }} />
+        <Quote currentTime={currentTime} />
+      </div>
+    </>
+  );
+};
