@@ -38,6 +38,7 @@ export default function Characters() {
       <input
         type="text"
         placeholder="Pesquisar"
+        data-testid="search"
         onChange={(e) => setSearch(e.target.value)}
       />
       <div className="characters-container">

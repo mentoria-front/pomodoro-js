@@ -1,44 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { FIVE_MINUTES, TEN_MINUTES } from "../constants/time";
+import { CountdownContext } from "../contexts/Countdown.context";
 import "./Timer.css";
 
-let timeout;
-
-const TEN_MINUTES = 30 * 60;
-const FIVE_MINUTES = 5 * 1;
-const ONE_SECOND = 1000;
-
-export const Timer = ({ onTimerChange }) => {
-  const [time, setTime] = useState(TEN_MINUTES);
-  const [isActive, setIsActive] = useState(false);
-
-  useEffect(() => {
-    if (isActive && time > 0) {
-      timeout = setTimeout(() => {
-        setTime(time - 1);
-      }, ONE_SECOND);
-    } else {
-      setIsActive(false);
-    }
-
-    onTimerChange(time);
-  }, [time, isActive]);
+export const Timer = () => {
+  const { time, handleChangeTime } = useContext(CountdownContext);
 
   const minutes = String(Math.floor(time / 60)).padStart(2, "0");
   const seconds = String(time % 60).padStart(2, "0");
 
   document.title = `${minutes} : ${seconds}`;
-
-  function stopCounter(timeToReset) {
-    clearTimeout(timeout);
-    setTime(Number.isNaN(timeToReset) || TEN_MINUTES);
-    setIsActive(false);
-  }
-
-  function handleChangeTime(timeToChange) {
-    stopCounter(timeToChange);
-    setTime(timeToChange);
-    setIsActive(true);
-  }
 
   return (
     <div>
