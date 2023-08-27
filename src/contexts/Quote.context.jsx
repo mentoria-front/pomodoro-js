@@ -7,7 +7,7 @@ import { CountdownContext } from "./Countdown.context";
 export const QuoteContext = createContext({});
 
 export const QuoteProvider = ({ children }) => {
-  const { time } = useContext(CountdownContext);
+  const { remainingTime } = useContext(CountdownContext);
 
   const [quotes, setQuotes] = useState([]);
   const [quote, setQuote] = useState();
@@ -21,10 +21,10 @@ export const QuoteProvider = ({ children }) => {
   }, [data]);
 
   useEffect(() => {
-    if (time === 0) {
+    if (remainingTime === 0) {
       getRandomQuote();
     }
-  }, [time]);
+  }, [remainingTime]);
 
   function getRandomQuote() {
     const randomNumber = Math.floor(Math.random() * quotes.length);

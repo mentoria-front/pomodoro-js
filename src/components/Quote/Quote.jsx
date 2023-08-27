@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { QuoteContext } from "../contexts/Quote.context";
+import { QuoteContext } from "../../contexts/Quote.context";
 
 import "./Quote.css";
 

@@ -1,21 +1,13 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Characters from "../pages/challange/Characters";
 import { Pomodoro } from "../pages/Pomodoro";
+import Header from "../components/Header/Header";
 
-export default function Router() {
+export default function Router() {  
   return (
     <BrowserRouter>
-      <nav>
-        <ul>
-          <li>
-            <Link to={"/"}> Home </Link>
-          </li>
-          <li>
-            <Link to={"/characters"}>characters</Link>
-          </li>
-        </ul>
-      </nav>
+      <Header />
       <Routes>
         <Route exact path="/" element={<Pomodoro />} />
         <Route path="/characters" element={<Characters />} />

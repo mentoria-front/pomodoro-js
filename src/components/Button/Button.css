@@ -1,0 +1,21 @@
+.button {
+  height: 50px;
+  width: 150px;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 500;
+  border: none;
+}
+
+.button--long {
+  background: #de4238;
+}
+
+.button--short {
+  background: #1696cd;
+}
+
+.button--loop {
+  background: #a8a100;
+}

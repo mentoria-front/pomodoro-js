@@ -1,41 +1,61 @@
-import React, { createContext, useEffect, useState } from "react";
-import { ONE_SECOND, TEN_MINUTES } from "../constants/time";
-
-let timeout;
+import React, { createContext, useEffect, useRef, useState } from "react";
+import { FIVE_MINUTES, ONE_SECOND, TEN_MINUTES } from "../constants/time";
 
 export const CountdownContext = createContext({});
 
 export const CountdownProvider = ({ children }) => {
-  const [time, setTime] = useState(TEN_MINUTES);
+  const [remainingTime, setRemainingTime] = useState(TEN_MINUTES);
+  const [pomodoroDuration, setPomodoroDuration] = useState(TEN_MINUTES);
   const [isActive, setIsActive] = useState(false);
+  const [isBreak, setIsBreak] = useState(false);
+  const [breakCount, setBreakCount] = useState(0);
+
+  const timeoutRef = useRef(null);
 
   useEffect(() => {
-    if (isActive && time > 0) {
-      timeout = setTimeout(() => {
-        setTime(time - 1);
+    if (isActive && remainingTime > 0) {
+      timeoutRef.current = setTimeout(() => {
+        setRemainingTime(remainingTime - 1);
       }, ONE_SECOND);
     } else {
-      setIsActive(false);
+      handleCountdownComplete();
     }
-  }, [time, isActive]);
 
-  function stopCounter(timeToReset) {
-    clearTimeout(timeout);
-    setTime(Number.isNaN(timeToReset) || TEN_MINUTES);
+    return () => {
+      clearTimeout(timeoutRef.current);
+    };
+  }, [remainingTime, isActive]);
+
+  function handleCountdownComplete() {
     setIsActive(false);
+
+    if (!isBreak && remainingTime === 0) {
+      startBreak();
+    } else if (isBreak && remainingTime === 0) {
+      startPomodoro(pomodoroDuration);
+    }
   }
 
-  function handleChangeTime(timeToChange) {
-    stopCounter(timeToChange);
-    setTime(timeToChange);
+  function startBreak() {
+    setRemainingTime(FIVE_MINUTES + 1);
+    setIsBreak(true);
+    setIsActive(true);
+    setBreakCount(prevCount => prevCount + 1); // Incrementa a contagem de pausas
+  }
+
+  function startPomodoro(duration) {
+    setRemainingTime(duration);
+    setPomodoroDuration(duration)
+    setIsBreak(false);
     setIsActive(true);
   }
 
   return (
     <CountdownContext.Provider
       value={{
-        handleChangeTime,
-        time,
+        startPomodoro,
+        remainingTime,
+        breakCount,
       }}
     >
       {children}

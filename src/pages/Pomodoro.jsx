@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import Quote from "../components/Quote";
-import { Timer } from "../components/Timer";
+import React from "react";
+import Quote from "../components/Quote/Quote";
+import { Timer } from "../components/Timer/Timer";
 
 import "./styles.css";
 
